@@ -1,0 +1,80 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 2em 0px;
+  grid-template-areas: ". .";
+}
+
+ul,
+li {
+  list-style-type: none;
+  list-style-position: inside;
+  margin: 0;
+  padding: 0;
+}
+
+.EventList {
+  padding: 1rem;
+  /* padding-top: 2rem; */
+  display: flex;
+  flex-direction: column;
+}
+
+.Event {
+  width: 90%;
+  height: 2rem;
+  background-color: #eee;
+  border-radius: 6px;
+
+  border: 1px solid #999;
+
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
+
+  /* Center content */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Event:hover {
+  background-color: #ddd;
+}
+
+.Event.Removeable:hover {
+  background-color: #Fdd;
+}
+
+.Event.Empty {
+  background-color: #fafafa;
+}
+
+
+.Cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+  margin: -20px;
+  font-size: 2em;
+  /* color: #333; */
+}
+
+.EventList.SelectedSlots {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.EventSidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 12px;
+}
