@@ -1,0 +1,45 @@
+{
+  "name": "react",
+  "version": "1.0.0",
+  "description": "React example starter project",
+  "keywords": [
+    "react",
+    "starter"
+  ],
+  "main": "src/index.tsx",
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.4.0",
+    "@types/ramda": "^0.27.32",
+    "classnames": "^2.2.6",
+    "date-fns": "2.16.1",
+    "ramda": "^0.27.1",
+    "react": "17.0.0",
+    "react-dom": "17.0.0",
+    "react-redux": "^7.2.2",
+    "react-scripts": "3.4.3",
+    "recompose": "^0.30.0",
+    "redux": "^4.0.5",
+    "rsuite": "4.8.4",
+    "tailwindcss": "2.0.1"
+  },
+  "devDependencies": {
+    "@types/classnames": "^2.2.11",
+    "@types/react": "16.9.19",
+    "@types/react-dom": "16.9.5",
+    "@types/react-redux": "^7.1.11",
+    "@types/recompose": "^0.30.7",
+    "typescript": "3.7.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
