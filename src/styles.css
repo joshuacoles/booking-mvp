@@ -48,6 +48,7 @@
 
   .WeekSelector {
     overflow: scroll;
+    z-index: 100;
   }
 
   .rs-steps-item {

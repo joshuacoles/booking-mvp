@@ -1,6 +1,8 @@
 import * as React from "react";
 import { Steps } from "rsuite";
 
+// TODO: Add selected module as small text below the module name, do not make the top bigger when we do this
+
 export function BookingSteps() {
   return (
     <div className="WeekSelector">
