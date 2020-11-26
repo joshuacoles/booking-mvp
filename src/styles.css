@@ -40,7 +40,7 @@
   background-color: #efefef;
 }
 
-/* We need to make the steps small from here onwardss */
+/* We need to make the steps small from here onwards */
 @media (max-width: 900px) {
   .WeekSelectorInner {
     min-width: fit-content;
@@ -86,4 +86,13 @@
 .Controls {
   display: flex;
   flex-direction: row;
+  margin-left: 16px;
+  margin-top: 16px;
+  margin-bottom: 8px;
+
+  align-items: center;
+}
+
+.WeekIndicator {
+  font-size: 1.1em;
 }
