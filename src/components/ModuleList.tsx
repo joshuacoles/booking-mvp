@@ -1,7 +1,11 @@
 import * as React from "react";
 import { LearningSlot } from "../data/types";
 import { getSlotsFor } from "../data/railsData";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
+import advancedFormat from "dayjs/plugin/advancedFormat";
+import { Dispatch, SetStateAction } from "react";
+
+dayjs.extend(advancedFormat)
 
 // TODO See how this interacts with wanting a sticky step nav.
 function DayColumnHeading(props: React.PropsWithChildren<any>) {
@@ -32,12 +36,22 @@ function DayColumn({ dayName, slots }: { dayName: string, slots: LearningSlot[] 
   );
 }
 
-export function ModuleList() {
+interface Props {
+  selectedWeek: Dayjs
+}
+
+export function ModuleList(props: Props) {
+  const dayOffsets = [1, 2, 3, 4, 5]
+  const week = props.selectedWeek.startOf('week');
+  const days = dayOffsets.map(dayOffset => week.day(dayOffset));
+
   return <div className="D1">
-    <DayColumn dayName="Monday 23nd" slots={getSlotsFor('c1', dayjs('2020-11-23'))}/>
-    <DayColumn dayName="Tuesday 24th" slots={getSlotsFor('c1', dayjs('2020-11-24'))}/>
-    <DayColumn dayName="Wednesday 25th" slots={getSlotsFor('c1', dayjs('2020-11-25'))}/>
-    <DayColumn dayName="Thursday 26th" slots={getSlotsFor('c1', dayjs('2020-11-26'))}/>
-    <DayColumn dayName="Friday 27th" slots={getSlotsFor('c1', dayjs('2020-11-27'))}/>
+    {days.map((day, index) => (
+      <DayColumn
+        key={index}
+        dayName={day.format('dddd Do')}
+        slots={getSlotsFor('c1', day)}
+      />
+    ))}
   </div>;
 }
