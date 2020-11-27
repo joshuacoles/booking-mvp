@@ -9,12 +9,16 @@
   ],
   "main": "src/index.tsx",
   "dependencies": {
+    "@reduxjs/toolkit": "^1.4.0",
+    "classnames": "^2.2.6",
+    "dayjs": "^1.9.6",
     "react": "17.0.0",
     "react-dom": "17.0.0",
     "react-scripts": "^3.4.4",
     "rsuite": "4.8.4"
   },
   "devDependencies": {
+    "@types/classnames": "^2.2.11",
     "@types/react": "16.9.19",
     "@types/react-dom": "16.9.5",
     "typescript": "3.7.5"

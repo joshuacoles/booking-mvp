@@ -97,3 +97,12 @@
 .WeekIndicator {
   font-size: 1.1em;
 }
+
+.StepperSelected {
+  background-color: #ddd;
+  border-radius: 10px
+}
+
+.StepperSelected > .stepIcon {
+
+}
