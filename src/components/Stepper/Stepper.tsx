@@ -25,7 +25,7 @@ export function Step({ lineClassName, statusClassName, ...rest }: StepProps) {
 
 function StepItem({ icon, iconClassName, stepClassName, statusClassName, children, ...rest }: Omit<StepProps, 'lineClassName'>) {
   const presentedIcon = icon
-    ? <div className={classNames(classes.stepIcon, iconClassName)}><span>{icon}</span></div>
+    ? <div className={classNames(iconClassName, statusClassName, classes.stepIcon)}><span>{icon}</span></div>
     : null;
 
   return (

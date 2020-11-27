@@ -1,4 +1,7 @@
 import * as React from "react";
+import { LearningSlot } from "../data/types";
+import { getSlotsFor } from "../data/railsData";
+import dayjs from "dayjs";
 
 // TODO See how this interacts with wanting a sticky step nav.
 function DayColumnHeading(props: React.PropsWithChildren<any>) {
@@ -10,31 +13,31 @@ function DayColumnHeading(props: React.PropsWithChildren<any>) {
   //      - Note we have to use this as paddding doesn't seem to work in stickies.
   return (
     <div className="HeadingContainer">
-      <div className="HeadingSpacer" />
+      <div className="HeadingSpacer"/>
       <div className="Box Heading">{props.children}</div>
     </div>
   );
 }
 
-function DayColumn({ dayName }: { dayName: string }) {
+function DayColumn({ dayName, slots }: { dayName: string, slots: LearningSlot[] }) {
   return (
     <div className="DayColumn">
       <DayColumnHeading>{dayName}</DayColumnHeading>
-
-      <div className="Box Slot">11:12 &mdash; 22:22</div>
-      <div className="Box Slot">14:12 &mdash; 22:22</div>
-      <div className="Box Slot">16:12 &mdash; 22:22</div>
-      <div className="Box Slot">16:12 &mdash; 22:22</div>
+      {slots.map((slot, index) =>
+        <div className="Box Slot" key={index}>
+          {slot.start.format('HH:MM')} &mdash; {slot.end.format('HH:MM')}
+        </div>
+      )}
     </div>
   );
 }
 
 export function ModuleList() {
   return <div className="D1">
-    <DayColumn dayName="Monday 23nd"/>
-    <DayColumn dayName="Tuesday 24th"/>
-    <DayColumn dayName="Wednesday 25th"/>
-    <DayColumn dayName="Thursday 26th"/>
-    <DayColumn dayName="Friday 27th"/>
+    <DayColumn dayName="Monday 23nd" slots={getSlotsFor('c1', dayjs('2020-11-23'))}/>
+    <DayColumn dayName="Tuesday 24th" slots={getSlotsFor('c1', dayjs('2020-11-24'))}/>
+    <DayColumn dayName="Wednesday 25th" slots={getSlotsFor('c1', dayjs('2020-11-25'))}/>
+    <DayColumn dayName="Thursday 26th" slots={getSlotsFor('c1', dayjs('2020-11-26'))}/>
+    <DayColumn dayName="Friday 27th" slots={getSlotsFor('c1', dayjs('2020-11-27'))}/>
   </div>;
 }

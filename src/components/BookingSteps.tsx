@@ -7,6 +7,8 @@ import { Stepper, Step } from "./Stepper";
 import classes from './BookingSteps.module.css';
 import classNames from "classnames";
 
+import { FaTimes } from "react-icons/fa"
+
 export function BookingSteps() {
   const [current, select] = useState(1);
   const ref = useRef<HTMLDivElement>();
@@ -27,12 +29,15 @@ export function BookingSteps() {
             // We use iconClassName & lineClassName to allow styling of these components using .[state] > .icon in
             // the .module.css
             <Step
-              icon={index + 1}
               key={index}
 
               statusClassName={classNames({
-                [classes.selected]: index === current
+                [classes.selected]: index === current,
+                [classes.error]: index === 2,
+                [classes.completed]: index < current,
               })}
+
+              icon={index === 2 ? <FaTimes color={"#f44336"}/> : index + 1}
 
               stepClassName={classes.step}
               iconClassName={classes.icon}

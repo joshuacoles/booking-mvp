@@ -4,6 +4,31 @@
     min-height: min-content;
 }
 
+.completed {
+    border-color: teal;
+    color: teal;
+}
+
+.completed.line {
+    background-color: teal;
+}
+
+.error {
+    border-color: #f44336;
+    color: #f44336;
+}
+.error.line {
+    background-color: #f44336;
+}
+
+.error.selected.step {
+    background-color: #e5a0a0;
+}
+
+/*.error.selected.icon {*/
+/*    background-color: #eee;*/
+/*}*/
+
 .line {}
 
 .stepTitle {

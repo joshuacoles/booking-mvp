@@ -46,6 +46,7 @@
 
 .Heading {
   background-color: #efefef;
+  border: 1px #c4c4c4 solid;
 }
 
 /* We need to make the steps small from here onwards */
