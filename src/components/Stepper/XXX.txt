@@ -1,0 +1,43 @@
+import * as React from "react";
+
+import classes from "./Stepper.module.css";
+
+interface Step<StatusSet> {
+  content: React.ReactNode
+  icon: React.ReactNode | null
+
+  status: keyof StatusSet
+}
+
+interface Props<StatusSet> {
+  steps: Step<StatusSet>[]
+  statuses: StatusSet[]
+}
+
+function Step<StatusSet>({ step }: { step: Step<StatusSet> }) {
+  const icon = step.icon
+    ? <div className="stepIcon">{step.icon}</div>
+    : null;
+
+  return (
+    <div className={classes.step}>
+      {icon}
+
+      <div className="stepContent">{step.content}</div>
+    </div>
+  );
+}
+
+export function Stepper<StatusSet>({ steps }: Props<StatusSet>) {
+  return (
+    <div className={classes.stepper}>
+      {}
+      {steps.map((step, index) => (
+        <>
+          <Step step={step}/>
+          {index !== steps.length - 1 ? <div className={classes.line}/> : null}
+        </>
+      ))}
+    </div>
+  );
+}

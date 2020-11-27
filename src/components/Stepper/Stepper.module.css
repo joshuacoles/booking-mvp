@@ -1,0 +1,47 @@
+.stepper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.step {
+    padding: 0.5rem;
+    margin: 2px;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.stepIcon {
+    float: left;
+    margin-right: 0.65em;
+
+    height: 2.1em;
+    width: 2.1em;
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: 1px black solid;
+}
+
+.stepIcon > span {
+    font-size: 1.2em;
+}
+
+.line {
+    height: 1px;
+    flex-grow: 1;
+
+    /* TODO MAKE CONFIG */
+    background-color: #575757;
+}
+
+/* Make the last line go away, pronto!! */
+.line:last-of-type {
+    display: none !important;
+}
