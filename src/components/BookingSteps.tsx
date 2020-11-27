@@ -1,30 +1,48 @@
 import * as React from "react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { railsData } from "../data/railsData";
 import { Stepper, Step } from "./Stepper";
 
-// TODO: Add selected module as small text below the module name, do not make the top bigger when we do this
+import classes from './BookingSteps.module.css';
+import classNames from "classnames";
+
 export function BookingSteps() {
   const [current, select] = useState(1);
+  const ref = useRef<HTMLDivElement>();
+
+  useEffect(() => {
+    ref.current?.querySelector(`.${classes.selected}`)?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+      inline: "center"
+    })
+  }, [current])
 
   return (
     <div className="WeekSelector">
       <div className="InnerWeekSelector">
-        <Stepper>
+        <Stepper ref={ref}>
           {railsData.modules.map((module, index) => (
+            // We use iconClassName & lineClassName to allow styling of these components using .[state] > .icon in
+            // the .module.css
             <Step
               icon={index + 1}
+              key={index}
 
-              style={index == 2 ? { backgroundColor: '#ddd', borderRadius: '10px' } : undefined}
+              statusClassName={classNames({
+                [classes.selected]: index === current
+              })}
 
-              className={""}
-              iconClassName={""}
-              lineClassName={""}
+              stepClassName={classes.step}
+              iconClassName={classes.icon}
+              lineClassName={classes.line}
+
+              onClick={() => select(index)}
             >
               <div>
-                <div style={{ fontSize: '1.2em', fontWeight: 'bold' }}>{module.moduleTitle}</div>
-                <div style={{ fontSize: '0.9em' }}>November 10th</div>
+                <div className={classes.stepTitle}>{module.moduleTitle}</div>
+                {index === 3 && <div className={classes.stepBooking}>November 10th</div>}
               </div>
             </Step>
           ))}

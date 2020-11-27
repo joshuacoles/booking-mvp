@@ -1,48 +1,43 @@
 import * as React from "react";
 
-import classes from "./Stepper.module.css";
 import classNames from "classnames";
-import { HTMLProps, useContext } from "react";
+import classes from "./Stepper.module.css";
 
-export function StepIcon(props: React.PropsWithChildren<any>) {
-  return <div className={classNames(classes.stepIcon, props.className)} {...props}/>
-}
-
-interface StepProps extends HTMLProps<HTMLDivElement> {
+interface StepProps extends React.HTMLProps<HTMLDivElement> {
   icon?: React.ReactNode | null
   children?: React.ReactNode
 
-  className?: string
+  statusClassName?: string
+
+  stepClassName?: string
   iconClassName?: string
   lineClassName?: string
 }
 
-export function Step({ lineClassName, ...rest }: StepProps) {
+export function Step({ lineClassName, statusClassName, ...rest }: StepProps) {
   return (
     <>
-      <StepItem {...rest} />
-      <div className={classNames(classes.line, lineClassName)}/>
+      <StepItem statusClassName={statusClassName} {...rest} />
+      <div className={classNames(classes.line, statusClassName, lineClassName)}/>
     </>
   );
 }
 
-function StepItem({ icon, iconClassName, className, children, ...rest }: Omit<StepProps, 'lineClassName'>) {
+function StepItem({ icon, iconClassName, stepClassName, statusClassName, children, ...rest }: Omit<StepProps, 'lineClassName'>) {
   const presentedIcon = icon
     ? <div className={classNames(classes.stepIcon, iconClassName)}><span>{icon}</span></div>
     : null;
 
   return (
-    <div className={classNames(classes.step, className)} {...rest}>
+    <div className={classNames(classes.step, statusClassName, stepClassName)} {...rest}>
       {presentedIcon}
       {children}
     </div>
   );
 }
 
-export function Stepper<StatusSet>({ children }: React.PropsWithChildren<any>) {
-  return (
-    <div className={classes.stepper}>
-      {children}
-    </div>
-  );
-}
+export const Stepper = React.forwardRef<any, React.PropsWithChildren<any>>(({ children }: React.PropsWithChildren<any>, ref) => (
+  <div className={classes.stepper} ref={ref}>
+    {children}
+  </div>
+));

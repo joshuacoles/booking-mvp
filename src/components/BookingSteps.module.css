@@ -1,0 +1,20 @@
+.step {
+    border-radius: 10px;
+    height: 4em;
+    min-height: min-content;
+}
+
+.line {}
+
+.stepTitle {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.stepBooking {
+    font-size: 0.9em;
+}
+
+.selected.step {
+    background-color: #ddd;
+}
