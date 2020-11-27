@@ -1,11 +1,10 @@
-import { BookingStep } from "./BookingStep";
 import { CaseReducer, configureStore, createSlice, PayloadAction, SliceCaseReducers } from "@reduxjs/toolkit";
-import { BookingState, LearningSlot } from "./types";
+import { BookingState, BookingStep, LearningSlot } from "./types";
 
 type Action<Payload = undefined> = CaseReducer<BookingState, PayloadAction<Payload>>;
 
 interface BookingReducers extends SliceCaseReducers<BookingState> {
-  chooseLearningSlot: Action<{ slot: LearningSlot }>
+  chooseLearningSlot: Action<{ slot: LearningSlot, moduleId: string }>
 
   nextStep: Action,
   moveToStep: Action<{ step: BookingStep }>
@@ -21,16 +20,17 @@ export const bookingSlice = createSlice<BookingState, BookingReducers, 'booking'
   },
 
   reducers: {
-    chooseLearningSlot() {
-
+    // TODO: Do we want to generate an error to be displayed as a top notification when selecting a wrong slot
+    chooseLearningSlot(state: BookingState, action) {
+      state.selectedSlots[action.payload.moduleId] = action.payload.slot;
     },
 
-    moveToStep() {
-
+    moveToStep(state, action) {
+      state.currentStep = action.payload.step
     },
 
-    nextStep() {
-
+    nextStep(state, action) {
+      state.currentStep = BookingStep.nextStep(state.currentStep)
     }
   }
 });
