@@ -107,11 +107,6 @@
   font-size: 1.1em;
 }
 
-.StepperSelected {
-  background-color: #ddd;
-  border-radius: 10px
-}
-
-.StepperSelected > .stepIcon {
-
+.week-picker a[role=combobox] {
+  border-radius: 0;
 }

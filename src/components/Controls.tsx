@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, ButtonGroup, DateRangePicker, Icon, Popover, Whisper } from "rsuite";
+import { Button, ButtonGroup, DateRangePicker } from "rsuite";
 import dayjs, { Dayjs } from "dayjs";
 import { Dispatch, SetStateAction } from "react";
 
@@ -37,27 +37,32 @@ interface Props {
 //
 // }
 function WeekPicker(props: Props) {
-  
-  return <Button style={{ padding: 0, margin: 0 }}
-  >
+  return <Button style={{ padding: 0, margin: 0 }}>
     <DateRangePicker
       isoWeek
       showOneCalendar
       cleanable={false}
 
-      // containerPadding={0}
-      // style={{ padding: 0, margin: 0 }}
-      style={{ backgroundColor: 'transparent' }}
-      renderValue={(value) =>
-        `${props.selectedWeek.day(1).format('Do MMMM')} to ${props.selectedWeek.day(7).format('Do MMMM')}`
-      }
+      className={"week-picker"}
       appearance={"subtle"}
-      value={[props.selectedWeek.day(1).toDate(), props.selectedWeek.day(7).toDate()]}
+
+      hoverRange={date => {
+        const d = dayjs(date);
+        return [d.day(1).toDate(), d.day(5).toDate()];
+      }}
+
+      disabledDate={date => dayjs(date).day() == 6 || dayjs(date).day() == 0}
+
+      renderValue={(value) =>
+        `${props.selectedWeek.day(1).format('Do MMMM YYYY')} \u27FC ${props.selectedWeek.day(7).format('Do MMMM YYYY')}`
+      }
+
+      value={[props.selectedWeek.day(1).toDate(), props.selectedWeek.day(5).toDate()]}
       onChange={(value) => {
         props.setSelectedWeek(dayjs(value[0]))
       }}
 
-      oneTap hoverRange="week" ranges={[]}
+      oneTap ranges={[]}
     />
   </Button>
 
