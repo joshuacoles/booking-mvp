@@ -20,7 +20,7 @@
 }
 
 /* We need to make the steps small from here onwards */
-@media (max-width: 900px) {
+@media (max-width: 950px) {
     .BookingStepsInner {
         min-width: fit-content;
     }

@@ -1,11 +1,30 @@
 .Controls {
     display: flex;
     flex-direction: row;
-    margin-left: 16px;
     margin-top: 16px;
-    margin-bottom: 8px;
+    margin-left: 16px;
+    margin-right: 16px;
+    /*margin-bottom: 8px;*/
 
     align-items: center;
+
+    /*width: 100%;*/
+}
+
+@media (max-width: 800px) {
+    .bg {
+        justify-items: stretch;
+        display: flex !important;
+        width: 100%;
+    }
+
+    .bg > * {
+        flex-grow: 1;
+    }
+
+    .bg > .week-picker {
+        flex-grow: 1;
+    }
 }
 
 .week-picker a[role=combobox] {

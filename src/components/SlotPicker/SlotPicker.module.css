@@ -1,5 +1,11 @@
-.D1 {
+.SlotPicker {
     display: flex;
+}
+
+@media (max-width: 800px) {
+    .SlotPicker {
+        flex-direction: column;
+    }
 }
 
 .Box {
@@ -23,14 +29,3 @@
 .DayColumn {
     flex-grow: 1;
 }
-
-@media (max-width: 800px) {
-    .D1 {
-        /* Center the column */
-        margin: 0 auto;
-        flex-direction: column;
-        max-width: 550px;
-    }
-}
-
-

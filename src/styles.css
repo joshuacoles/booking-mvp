@@ -1,4 +1,29 @@
 .App {
-  font-family: sans-serif;
-  text-align: center;
+    font-family: sans-serif;
+    text-align: center;
+}
+
+.AppContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+@media (max-width: 800px) {
+    .AppContainer {
+        margin: 0 auto;
+        max-width: 550px;
+
+        align-items: stretch;
+    }
+}
+
+@media (max-width: 300px) {
+    .rs-picker-toggle-caret::before {
+        display: none
+    }
+
+    .rs-picker-toggle {
+        padding-right: 12px !important;
+    }
 }

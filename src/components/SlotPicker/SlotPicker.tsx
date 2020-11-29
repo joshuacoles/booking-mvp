@@ -30,7 +30,7 @@ export function SlotPicker(props: Props) {
   const week = props.selectedWeek.startOf('week');
   const days = dayOffsets.map(dayOffset => week.day(dayOffset));
 
-  return <div className={classes.D1}>
+  return <div className={classes.SlotPicker}>
     {days.map((day, index) => (
       <DayColumn
         key={index}

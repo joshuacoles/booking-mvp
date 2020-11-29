@@ -15,8 +15,10 @@ export default function App() {
   return (
     <div className="App">
       <BookingSteps/>
-      <Controls selectedWeek={selectedWeek} setSelectedWeek={setSelectedWeek}/>
-      <SlotPicker selectedWeek={selectedWeek}/>
+      <div className="AppContainer">
+        <Controls selectedWeek={selectedWeek} setSelectedWeek={setSelectedWeek}/>
+        <SlotPicker selectedWeek={selectedWeek}/>
+      </div>
     </div>
   );
 }
