@@ -1,14 +1,14 @@
 import * as React from "react";
 import { useEffect, useRef, useState } from "react";
 
-import { ModuleRef, railsData } from "../data/railsData";
-import { Stepper, Step } from "./Stepper";
+import { ModuleRef, railsData } from "../../data/railsData";
+import { Stepper, Step } from "../Stepper";
 
 import classes from './BookingSteps.module.css';
 import classNames from "classnames";
 
 import { FaTimes } from "react-icons/fa"
-import { steps } from "../data/bookingFlow";
+import { steps } from "../../data/bookingFlow";
 
 function ModuleSelectionStep({ moduleRef }: { moduleRef: ModuleRef }) {
   const module = railsData.modules[moduleRef];
