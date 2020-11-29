@@ -1,39 +1,55 @@
 import { ModuleID, ModuleRef, railsData } from "./railsData";
+import { BookingState } from "./store";
+import { type } from "ramda";
 
 export type BookingStep = {
   type: "selectingLearningSlot",
-  currentModule: ModuleRef
+  currentModule: ModuleRef,
+  index: number
 } | {
-  type: "confirming"
+  type: "confirming",
+  index: number
 };
 export const BookingStep = {
   forModuleRef(moduleRef: ModuleRef): BookingStep {
-    return { type: "selectingLearningSlot", currentModule: moduleRef };
+    return { type: "selectingLearningSlot", currentModule: moduleRef, index: moduleRef };
   },
 
   forModuleId(moduleId: ModuleID): BookingStep {
-    return { type: "selectingLearningSlot", currentModule: railsData.modules.findIndex(m => m.moduleId === moduleId) };
+    return this.forModuleRef(railsData.modules.findIndex(m => m.moduleId === moduleId));
   },
 
   nextStep(step: BookingStep): BookingStep {
-    switch (step.type) {
-      case "selectingLearningSlot":
-        const nextModule = step.currentModule + 1;
+    const nextStep = step.index + 1;
 
-        // If we are done selecting, move to confirming
-        if (nextModule === railsData.modules.length) return { type: "confirming" }
-
-        // Else next module
-        return { type: "selectingLearningSlot", currentModule: nextModule };
-
-      case "confirming":
-        // In the case of confirming we are done, this shouldn't really happen,
-        // use the confirm button instead.
-        return step
-    }
+    // Don't overflow
+    if (nextStep === steps.length) return step;
+    else return steps[nextStep];
   },
+
+  indexOf(step: BookingStep): number {
+    return step.index;
+  },
+
+  forIndex(index: number): BookingStep {
+    return steps[index]
+  },
+
+  isInError(step: BookingStep, selectedSlots: BookingState["selectedSlots"]) {
+    if (step.type === "confirming") return false;
+
+    // The first module can't be before its previous, it doesn't have one
+    if (step.currentModule === 0) return false;
+
+    const slot = selectedSlots[railsData.modules[step.currentModule].moduleId];
+    const prevSlot = selectedSlots[railsData.modules[step.currentModule - 1].moduleId];
+
+    if (typeof slot === "undefined" || typeof prevSlot === "undefined") return false;
+
+    return slot.start.isBefore(prevSlot.end);
+  }
 }
 export const steps: BookingStep[] = [
   ...railsData.modules.map((x, i) => BookingStep.forModuleRef(i)),
-  { type: "confirming" }
+  { type: "confirming", index: railsData.modules.length }
 ];

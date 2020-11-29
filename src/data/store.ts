@@ -10,7 +10,7 @@ export interface BookingState {
 type Action<Payload = undefined> = CaseReducer<BookingState, PayloadAction<Payload>>;
 
 interface BookingReducers extends SliceCaseReducers<BookingState> {
-  chooseLearningSlot: Action<{ slot: LearningSlot, moduleId: string }>
+  chooseLearningSlot: Action<{ slot: LearningSlot, moduleId: string, progress: boolean }>
 
   nextStep: Action,
   moveToStep: Action<{ step: BookingStep }>
@@ -29,6 +29,7 @@ export const bookingSlice = createSlice<BookingState, BookingReducers, 'booking'
     // TODO: Do we want to generate an error to be displayed as a top notification when selecting a wrong slot
     chooseLearningSlot(state: BookingState, action) {
       state.selectedSlots[action.payload.moduleId] = action.payload.slot;
+      if (action.payload.progress) state.currentStep = BookingStep.nextStep(state.currentStep);
     },
 
     moveToStep(state, action) {

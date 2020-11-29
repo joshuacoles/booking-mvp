@@ -1,22 +1,27 @@
 import * as React from "react";
 import { useEffect, useRef, useState } from "react";
 
-import { ModuleRef, railsData } from "../../data/railsData";
+import { LearningSlot, ModuleRef, railsData } from "../../data/railsData";
 import { Stepper, Step } from "../Stepper";
 
 import classes from './BookingSteps.module.css';
 import classNames from "classnames";
 
 import { FaTimes } from "react-icons/fa"
-import { steps } from "../../data/bookingFlow";
+import { BookingStep, steps } from "../../data/bookingFlow";
+import { useDispatch, useSelector } from "react-redux";
+import { actions, BookingState } from "../../data/store";
 
 function ModuleSelectionStep({ moduleRef }: { moduleRef: ModuleRef }) {
   const module = railsData.modules[moduleRef];
+  const selectedSlot = useSelector<BookingState, LearningSlot | undefined>(state => state.selectedSlots[module.moduleId]);
 
   return (
     <div>
       <div className={classes.stepTitle}>{module.moduleTitle}</div>
-      {moduleRef === 3 && <div className={classes.stepBooking}>November 10th</div>}
+      {selectedSlot && <div className={classes.stepBooking}>
+        {selectedSlot.start.format("MMMM Do")}
+      </div>}
     </div>
   );
 }
@@ -30,7 +35,11 @@ function ConfirmingStep() {
 }
 
 export function BookingSteps() {
-  const [current, select] = useState(1);
+  const dispatch = useDispatch();
+
+  const current = useSelector<BookingState, number>(state => BookingStep.indexOf(state.currentStep));
+  const selectedSlots = useSelector<BookingState, BookingState["selectedSlots"]>(state => state.selectedSlots);
+
   const ref = useRef<HTMLDivElement>();
 
   useEffect(() => {
@@ -53,17 +62,17 @@ export function BookingSteps() {
 
               statusClassName={classNames({
                 [classes.selected]: index === current,
-                [classes.error]: index === 2,
+                [classes.error]: BookingStep.isInError(step, selectedSlots),
                 [classes.completed]: index < current,
               })}
 
-              icon={index === 2 ? <FaTimes color={"#f44336"}/> : index + 1}
+              icon={BookingStep.isInError(step, selectedSlots) ? <FaTimes color={"#f44336"}/> : index + 1}
 
               stepClassName={classes.step}
               iconClassName={classes.icon}
               lineClassName={classes.line}
 
-              onClick={() => select(index)}
+              onClick={() => dispatch(actions.moveToStep({ step: BookingStep.forIndex(index) }))}
             >
               {
                 step.type === "confirming"
