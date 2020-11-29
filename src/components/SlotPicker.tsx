@@ -38,7 +38,7 @@ interface Props {
   selectedWeek: Dayjs
 }
 
-export function ModuleList(props: Props) {
+export function SlotPicker(props: Props) {
   const dayOffsets = [1, 2, 3, 4, 5]
   const week = props.selectedWeek.startOf('week');
   const days = dayOffsets.map(dayOffset => week.day(dayOffset));

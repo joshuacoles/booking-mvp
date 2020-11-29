@@ -3,33 +3,6 @@
   text-align: center;
 }
 
-.InnerWeekSelector {
-  /*
-  NOTE: This does not provide for space for the lines when the container we are fitting in
-        is smaller than max-content.
-
-        If we really want to show them set a min-width on the lines.
-  */
-  min-width: max-content;
-}
-
-.WeekSelector {
-  box-shadow: 3px 3px 4px 1px #ccc;
-
-  position: sticky;
-  top: -1px;
-  background-color: #eee;
-
-  padding: 5px 20px;
-  text-align: initial;
-
-  /* position: "sticky",
-  top: "-1px",
-  width: "100%",
-  height: "100px",
-  backgroundColor: "red" */
-}
-
 .D1 {
   display: flex;
 }
@@ -49,27 +22,6 @@
   border: 1px #c4c4c4 solid;
 }
 
-/* We need to make the steps small from here onwards */
-@media (max-width: 900px) {
-  .WeekSelectorInner {
-    min-width: fit-content;
-  }
-
-  .WeekSelector {
-    overflow: scroll;
-    z-index: 100;
-  }
-
-  .rs-steps-item {
-    min-width: fit-content;
-  }
-
-  /* Only show current text */
-  /* .rs-steps-item:not(.rs-steps-item-status-process) .rs-steps-item-title {
-    display: none;
-  } */
-}
-
 @media (max-width: 800px) {
   .D1 {
     /* Center the column */
@@ -77,16 +29,6 @@
     flex-direction: column;
     max-width: 550px;
   }
-
-  /* .HeadingContainer {
-    position: sticky;
-    top: -1px;
-    background-color: white;
-  }
-
-  .HeadingSpacer {
-    height: 4px;
-  } */
 }
 
 .Slot {
@@ -101,10 +43,6 @@
   margin-bottom: 8px;
 
   align-items: center;
-}
-
-.WeekIndicator {
-  font-size: 1.1em;
 }
 
 .week-picker a[role=combobox] {

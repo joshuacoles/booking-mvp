@@ -42,8 +42,8 @@ export function BookingSteps() {
   }, [current])
 
   return (
-    <div className="WeekSelector">
-      <div className="InnerWeekSelector">
+    <div className={classes.BookingSteps}>
+      <div className={classes.InnerBookingSteps}>
         <Stepper ref={ref}>
           {steps.map((step, index) => (
             // We use iconClassName & lineClassName to allow styling of these components using .[state] > .icon in

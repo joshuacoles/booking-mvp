@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { BookingSteps } from "./components/BookingSteps";
-import { ModuleList } from "./components/ModuleList";
+import { SlotPicker } from "./components/SlotPicker";
 import { Controls } from "./components/Controls";
 
 import "./styles.css";
@@ -16,7 +16,7 @@ export default function App() {
     <div className="App">
       <BookingSteps/>
       <Controls selectedWeek={selectedWeek} setSelectedWeek={setSelectedWeek}/>
-      <ModuleList selectedWeek={selectedWeek}/>
+      <SlotPicker selectedWeek={selectedWeek}/>
     </div>
   );
 }

@@ -1,9 +1,57 @@
+.BookingSteps {
+    box-shadow: 3px 3px 4px 1px #ccc;
+
+    position: sticky;
+    top: -1px;
+    background-color: #eee;
+
+    padding: 5px 20px;
+    text-align: initial;
+}
+
+.InnerBookingSteps {
+    /*
+    NOTE: This does not provide for space for the lines when the container we are fitting in
+          is smaller than max-content.
+
+          If we really want to show them set a min-width on the lines.
+    */
+    min-width: max-content;
+}
+
+/* We need to make the steps small from here onwards */
+@media (max-width: 900px) {
+    .BookingStepsInner {
+        min-width: fit-content;
+    }
+
+    .BookingSteps {
+        overflow: scroll;
+        z-index: 100;
+    }
+}
+
+/* Just here so we can reference it in status styles */
+.line {}
+
 .step {
     border-radius: 10px;
     height: 4em;
     min-height: min-content;
 }
 
+.stepTitle {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.stepBooking {
+    font-size: 0.9em;
+}
+
+/** Status Styles **/
+
+/* Completed */
 .completed {
     border-color: teal;
     color: teal;
@@ -12,6 +60,8 @@
 .completed.line {
     background-color: teal;
 }
+
+/* Error */
 
 .error {
     border-color: #f44336;
@@ -25,20 +75,7 @@
     background-color: #e5a0a0;
 }
 
-/*.error.selected.icon {*/
-/*    background-color: #eee;*/
-/*}*/
-
-.line {}
-
-.stepTitle {
-    font-size: 1.2em;
-    font-weight: bold;
-}
-
-.stepBooking {
-    font-size: 0.9em;
-}
+/** Selected **/
 
 .selected.step {
     background-color: #ddd;
