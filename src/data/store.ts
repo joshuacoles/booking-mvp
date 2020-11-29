@@ -1,5 +1,11 @@
 import { CaseReducer, configureStore, createSlice, PayloadAction, SliceCaseReducers } from "@reduxjs/toolkit";
-import { BookingState, BookingStep, LearningSlot } from "./types";
+import { LearningSlot, railsData } from "./railsData";
+import { BookingStep } from "./bookingFlow";
+
+export interface BookingState {
+  currentStep: BookingStep
+  selectedSlots: { [moduleId: string]: LearningSlot };
+}
 
 type Action<Payload = undefined> = CaseReducer<BookingState, PayloadAction<Payload>>;
 
@@ -15,7 +21,7 @@ export const bookingSlice = createSlice<BookingState, BookingReducers, 'booking'
 
   // TODO: Hydrate this from rails
   initialState: {
-    currentStep: { type: "selectingLearningSlot", currentModuleId: '1' },
+    currentStep: BookingStep.forModuleId(railsData.modules[0].moduleId),
     selectedSlots: Object.create(null)
   },
 

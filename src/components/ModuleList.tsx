@@ -1,9 +1,7 @@
 import * as React from "react";
-import { LearningSlot } from "../data/types";
-import { getSlotsFor } from "../data/railsData";
 import dayjs, { Dayjs } from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
-import { Dispatch, SetStateAction } from "react";
+import { LearningSlot, getSlotsFor } from "../data/railsData";
 
 dayjs.extend(advancedFormat)
 
@@ -14,7 +12,7 @@ function DayColumnHeading(props: React.PropsWithChildren<any>) {
   //    - The .HeadingContainer is the thing with `position: sticky` which stays at the top of the page.
   //      - To do this we need a top/bottom/etc specified, this is given as -1 to basically be nothing.
   //    - The .HeadingSpacer is a fixed height thing which just provides a bit of padding on the top
-  //      - Note we have to use this as paddding doesn't seem to work in stickies.
+  //      - Note we have to use this as padding doesn't seem to work in stickies.
   return (
     <div className="HeadingContainer">
       <div className="HeadingSpacer"/>

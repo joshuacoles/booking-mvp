@@ -8,34 +8,6 @@ interface Props {
   setSelectedWeek: Dispatch<SetStateAction<Dayjs>>
 }
 
-// function WeekPicker(props: Props) {
-//   return <Whisper
-//     trigger="click"
-//     placement="bottomStart"
-//     speaker={
-//       // TODO Disable weekends and days before previous module
-//       // TODO Change hover to be only work days
-//       <Popover title="Pick a week to view">
-//         <DateRangePicker
-//           isoWeek
-//           showOneCalendar
-//           appearance={"subtle"}
-//           value={[props.selectedWeek.day(1).toDate(), props.selectedWeek.day(7).toDate()]}
-//           onChange={(value) => {
-//             props.setSelectedWeek(dayjs(value[0]))
-//           }}
-//
-//           oneTap hoverRange="week" ranges={[]}
-//         />
-//       </Popover>
-//     }
-//   >
-//     <Button>
-//       <Icon icon={"calendar"}/> Pick
-//     </Button>
-//   </Whisper>;
-//
-// }
 function WeekPicker(props: Props) {
   return <Button style={{ padding: 0, margin: 0 }}>
     <DateRangePicker
@@ -53,9 +25,14 @@ function WeekPicker(props: Props) {
 
       disabledDate={date => dayjs(date).day() == 6 || dayjs(date).day() == 0}
 
-      renderValue={(value) =>
-        `${props.selectedWeek.day(1).format('Do MMMM YYYY')} \u27FC ${props.selectedWeek.day(7).format('Do MMMM YYYY')}`
-      }
+      renderValue={(value) => {
+        // Small size class
+        if (window.screen.availWidth < 900) {
+          return `${props.selectedWeek.day(1).format('DD/MM/YYYY')} to ${props.selectedWeek.day(7).format('DD/MM/YYYY')}`
+        } else {
+          return `${props.selectedWeek.day(1).format('Do MMMM YYYY')} \u27FC ${props.selectedWeek.day(7).format('Do MMMM YYYY')}`
+        }
+      }}
 
       value={[props.selectedWeek.day(1).toDate(), props.selectedWeek.day(5).toDate()]}
       onChange={(value) => {
@@ -79,14 +56,6 @@ export function Controls(props: Props) {
 
         <Button onClick={() => props.setSelectedWeek(prev => prev.add(1, 'week'))}>Next</Button>
       </ButtonGroup>
-
-
-      {/* Spacer */}
-      {/*<div style={{ width: '10px' }}/>*/}
-
-      {/*<div className="WeekIndicator">*/}
-      {/*  Week {props.selectedWeek.day(1).format('Do MMMM')} to {props.selectedWeek.day(7).format('Do MMMM')}*/}
-      {/*</div>*/}
     </div>
   );
 }

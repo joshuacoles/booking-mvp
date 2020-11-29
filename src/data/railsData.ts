@@ -1,9 +1,19 @@
-import { LearningSlot } from "./types";
-import dayjs, { Dayjs } from "dayjs";
+import { fakeRailsData, getSlotsFor as _getSlotsFor } from "./fake-data-gen";
+import { Dayjs } from "dayjs";
+
+export type ModuleID = string;
+export type WeekRef = Dayjs;
+export type ModuleRef = number;
 
 export interface Module {
   moduleId: string
   moduleTitle: string
+}
+
+// TODO: Do we want to include some form of "fullness"
+export interface LearningSlot {
+  start: Dayjs
+  end: Dayjs
 }
 
 export interface RailsData {
@@ -14,53 +24,8 @@ export interface RailsData {
   availableSlots: { [moduleId: string]: { [startOfDayISO: string]: LearningSlot[] } }
 }
 
-export const railsData: RailsData = {
-  modules: [m(1), m(2), m(3), m(4), m(5), m(6)],
-  availableSlots: {}
-};
-
-// Used to generate fake data for testing
-
-function m(m: number): Module {
-  return {
-    moduleId: `cl-${m}`,
-    moduleTitle: `Module ${m}`
-  }
+export function getSlotsFor(moduleID: ModuleID, week: WeekRef): LearningSlot[] {
+  return _getSlotsFor(moduleID, week);
 }
 
-export function getSlotsFor(moduleId: string, date: Dayjs): LearningSlot[] {
-  // Normalise Dates
-  const startOfDayISO = date.startOf('day').toISOString();
-
-  if (typeof railsData.availableSlots[moduleId] === 'undefined') railsData.availableSlots[moduleId] = { };
-  const map = railsData.availableSlots[moduleId]
-
-  if (map.hasOwnProperty(startOfDayISO)) {
-    return map[startOfDayISO]
-  } else {
-    const slots = randomSlots(date)
-    map[startOfDayISO] = slots;
-    return slots;
-  }
-}
-
-
-function randomSlots(date: Dayjs): LearningSlot[] {
-  const no = Math.floor(Math.random() * 7);
-  const events: LearningSlot[] = [];
-
-  const startOfDay = date.startOf('day');
-
-  for (let i = 0; i < no; i++) {
-    const no30 = Math.floor(Math.random() * 10);
-    const start = startOfDay.add(30 * no30 + 60 * 12, 'minute')
-    const end = start.add(1, 'hour');
-
-    events.push({
-      start,
-      end,
-    });
-  }
-
-  return events;
-}
+export const railsData = fakeRailsData;

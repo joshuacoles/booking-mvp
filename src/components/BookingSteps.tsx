@@ -1,13 +1,33 @@
 import * as React from "react";
 import { useEffect, useRef, useState } from "react";
 
-import { railsData } from "../data/railsData";
+import { ModuleRef, railsData } from "../data/railsData";
 import { Stepper, Step } from "./Stepper";
 
 import classes from './BookingSteps.module.css';
 import classNames from "classnames";
 
 import { FaTimes } from "react-icons/fa"
+import { steps } from "../data/bookingFlow";
+
+function ModuleSelectionStep({ moduleRef }: { moduleRef: ModuleRef }) {
+  const module = railsData.modules[moduleRef];
+
+  return (
+    <div>
+      <div className={classes.stepTitle}>{module.moduleTitle}</div>
+      {moduleRef === 3 && <div className={classes.stepBooking}>November 10th</div>}
+    </div>
+  );
+}
+
+function ConfirmingStep() {
+  return (
+    <div>
+      <div className={classes.stepTitle}>Confirm</div>
+    </div>
+  );
+}
 
 export function BookingSteps() {
   const [current, select] = useState(1);
@@ -25,7 +45,7 @@ export function BookingSteps() {
     <div className="WeekSelector">
       <div className="InnerWeekSelector">
         <Stepper ref={ref}>
-          {railsData.modules.map((module, index) => (
+          {steps.map((step, index) => (
             // We use iconClassName & lineClassName to allow styling of these components using .[state] > .icon in
             // the .module.css
             <Step
@@ -45,10 +65,11 @@ export function BookingSteps() {
 
               onClick={() => select(index)}
             >
-              <div>
-                <div className={classes.stepTitle}>{module.moduleTitle}</div>
-                {index === 3 && <div className={classes.stepBooking}>November 10th</div>}
-              </div>
+              {
+                step.type === "confirming"
+                  ? <ConfirmingStep/>
+                  : <ModuleSelectionStep moduleRef={step.currentModule}/>
+              }
             </Step>
           ))}
         </Stepper>
