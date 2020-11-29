@@ -1,0 +1,13 @@
+.Controls {
+    display: flex;
+    flex-direction: row;
+    margin-left: 16px;
+    margin-top: 16px;
+    margin-bottom: 8px;
+
+    align-items: center;
+}
+
+.week-picker a[role=combobox] {
+    border-radius: 0;
+}

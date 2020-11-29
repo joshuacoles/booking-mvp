@@ -3,6 +3,8 @@ import { Button, ButtonGroup, DateRangePicker } from "rsuite";
 import dayjs, { Dayjs } from "dayjs";
 import { Dispatch, SetStateAction } from "react";
 
+import classes from "./Controls.module.css";
+
 interface Props {
   selectedWeek: Dayjs
   setSelectedWeek: Dispatch<SetStateAction<Dayjs>>
@@ -15,7 +17,7 @@ function WeekPicker(props: Props) {
       showOneCalendar
       cleanable={false}
 
-      className={"week-picker"}
+      className={classes.weekPicker}
       appearance={"subtle"}
 
       hoverRange={date => {
@@ -48,7 +50,7 @@ function WeekPicker(props: Props) {
 // TODO: Include way to select week from calendar (modal?)
 export function Controls(props: Props) {
   return (
-    <div className="Controls">
+    <div className={classes.Controls}>
       <ButtonGroup>
         <Button onClick={() => props.setSelectedWeek(prev => prev.subtract(1, 'week'))}>Previous</Button>
 
