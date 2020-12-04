@@ -1,5 +1,6 @@
 import { FakeRailsData } from "./fake-data-gen";
 import { Dayjs } from "dayjs";
+import { Middleware } from "@reduxjs/toolkit";
 
 export type ModuleID = string;
 export type WeekRef = Dayjs;
@@ -26,3 +27,15 @@ export interface RailsData {
 }
 
 export const railsData = new FakeRailsData();
+
+export const persistToRails: Middleware = ({ getState }) => next => action => {
+  // Call the next dispatch method in the middleware chain.
+  const returnValue = next(action);
+
+  fetch('https://httpbin.org/post', {
+    method: "POST",
+    body: JSON.stringify(getState())
+  }).then(x => x.json()).then(console.log)
+
+  return returnValue
+};

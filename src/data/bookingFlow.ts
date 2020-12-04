@@ -1,5 +1,6 @@
 import { ModuleID, ModuleRef, railsData } from "./railsData";
 import { BookingState } from "./store";
+import { take } from "ramda";
 
 export type BookingStep = {
   type: "selectingLearningSlot",
@@ -47,6 +48,15 @@ export const BookingStep = {
     if (typeof slotId === 'undefined' || typeof prevSlotId === 'undefined') return false;
 
     return railsData.getSlot(slotId).start.isBefore(railsData.getSlot(prevSlotId).end)
+  },
+
+  isSelectable(step: BookingStep, selectedSlots: BookingState["selectedSlots"]) {
+    return take(step.index - 2, steps)
+      .every(step => {
+        if (step.type !== 'selectingLearningSlot') return true;
+
+        return typeof selectedSlots[railsData.modules[step.currentModule].moduleId] !== "undefined";
+      })
   }
 }
 

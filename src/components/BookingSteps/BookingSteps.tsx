@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 import { LearningSlot, ModuleRef, railsData } from "../../data/railsData";
 import { Stepper, Step } from "../Stepper";
@@ -42,6 +42,12 @@ export function BookingSteps() {
 
   const ref = useRef<HTMLDivElement>();
 
+  const onStepClick = useCallback((step: BookingStep) => {
+    if (BookingStep.isSelectable(step, selectedSlots)) dispatch(actions.moveToStep({
+      step: step
+    }))
+  }, [dispatch, selectedSlots]);
+
   useEffect(() => {
     ref.current?.querySelector(`.${classes.selected}`)?.scrollIntoView({
       behavior: "smooth",
@@ -72,7 +78,7 @@ export function BookingSteps() {
               iconClassName={classes.icon}
               lineClassName={classes.line}
 
-              onClick={() => dispatch(actions.moveToStep({ step: BookingStep.forIndex(index) }))}
+              onClick={() => onStepClick(step)}
             >
               {
                 step.type === "confirming"

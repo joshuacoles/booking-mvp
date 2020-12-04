@@ -1,5 +1,5 @@
 import { CaseReducer, configureStore, createSlice, PayloadAction, SliceCaseReducers } from "@reduxjs/toolkit";
-import { railsData, LearningSlotRef } from "./railsData";
+import { LearningSlotRef, persistToRails, railsData } from "./railsData";
 import { BookingStep } from "./bookingFlow";
 
 export interface BookingState {
@@ -46,4 +46,5 @@ export const actions = bookingSlice.actions;
 
 export const store = configureStore({
   reducer: bookingSlice.reducer,
+  middleware: getDefaultMiddleware => [...getDefaultMiddleware(), persistToRails]
 });

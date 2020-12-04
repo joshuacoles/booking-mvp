@@ -32,7 +32,7 @@ export class FakeRailsData implements RailsData {
 
 function m(m: number): Module {
   return {
-    moduleId: `cl-${m}`,
+    moduleId: `cl${m}`,
     moduleTitle: `Module ${m}`
   }
 }
