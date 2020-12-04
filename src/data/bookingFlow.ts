@@ -1,6 +1,5 @@
 import { ModuleID, ModuleRef, railsData } from "./railsData";
 import { BookingState } from "./store";
-import { type } from "ramda";
 
 export type BookingStep = {
   type: "selectingLearningSlot",
@@ -10,6 +9,7 @@ export type BookingStep = {
   type: "confirming",
   index: number
 };
+
 export const BookingStep = {
   forModuleRef(moduleRef: ModuleRef): BookingStep {
     return { type: "selectingLearningSlot", currentModule: moduleRef, index: moduleRef };
@@ -41,14 +41,15 @@ export const BookingStep = {
     // The first module can't be before its previous, it doesn't have one
     if (step.currentModule === 0) return false;
 
-    const slot = selectedSlots[railsData.modules[step.currentModule].moduleId];
-    const prevSlot = selectedSlots[railsData.modules[step.currentModule - 1].moduleId];
+    const slotId = selectedSlots[railsData.modules[step.currentModule].moduleId];
+    const prevSlotId = selectedSlots[railsData.modules[step.currentModule - 1].moduleId];
 
-    if (typeof slot === "undefined" || typeof prevSlot === "undefined") return false;
+    if (typeof slotId === 'undefined' || typeof prevSlotId === 'undefined') return false;
 
-    return slot.start.isBefore(prevSlot.end);
+    return railsData.getSlot(slotId).start.isBefore(railsData.getSlot(prevSlotId).end)
   }
 }
+
 export const steps: BookingStep[] = [
   ...railsData.modules.map((x, i) => BookingStep.forModuleRef(i)),
   { type: "confirming", index: railsData.modules.length }

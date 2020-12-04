@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 import { LearningSlot, ModuleRef, railsData } from "../../data/railsData";
 import { Stepper, Step } from "../Stepper";
@@ -14,7 +14,7 @@ import { actions, BookingState } from "../../data/store";
 
 function ModuleSelectionStep({ moduleRef }: { moduleRef: ModuleRef }) {
   const module = railsData.modules[moduleRef];
-  const selectedSlot = useSelector<BookingState, LearningSlot | undefined>(state => state.selectedSlots[module.moduleId]);
+  const selectedSlot = useSelector<BookingState, LearningSlot | undefined>(state => railsData.getSlot(state.selectedSlots[module.moduleId]));
 
   return (
     <div>

@@ -1,16 +1,16 @@
 import { CaseReducer, configureStore, createSlice, PayloadAction, SliceCaseReducers } from "@reduxjs/toolkit";
-import { LearningSlot, railsData } from "./railsData";
+import { railsData, LearningSlotRef } from "./railsData";
 import { BookingStep } from "./bookingFlow";
 
 export interface BookingState {
   currentStep: BookingStep
-  selectedSlots: { [moduleId: string]: LearningSlot };
+  selectedSlots: { [moduleId: string]: LearningSlotRef };
 }
 
 type Action<Payload = undefined> = CaseReducer<BookingState, PayloadAction<Payload>>;
 
 interface BookingReducers extends SliceCaseReducers<BookingState> {
-  chooseLearningSlot: Action<{ slot: LearningSlot, moduleId: string, progress: boolean }>
+  chooseLearningSlot: Action<{ slotId: LearningSlotRef, moduleId: string, progress: boolean }>
 
   nextStep: Action,
   moveToStep: Action<{ step: BookingStep }>
@@ -26,9 +26,9 @@ export const bookingSlice = createSlice<BookingState, BookingReducers, 'booking'
   },
 
   reducers: {
-    // TODO: Do we want to generate an error to be displayed as a top notification when selecting a wrong slot
     chooseLearningSlot(state: BookingState, action) {
-      state.selectedSlots[action.payload.moduleId] = action.payload.slot;
+      // TODO: Do we want to generate an error to be displayed as a top notification when selecting a wrong slot
+      state.selectedSlots[action.payload.moduleId] = action.payload.slotId;
       if (action.payload.progress) state.currentStep = BookingStep.nextStep(state.currentStep);
     },
 

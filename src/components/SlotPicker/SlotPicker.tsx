@@ -1,7 +1,7 @@
 import * as React from "react";
 import dayjs, { Dayjs } from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
-import { LearningSlot, getSlotsFor, railsData } from "../../data/railsData";
+import { LearningSlot, railsData } from "../../data/railsData";
 
 import classes from "./SlotPicker.module.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -36,7 +36,7 @@ export function SlotPicker(props: Props) {
   })
 
   const callback = useCallback((moduleId: string, slot: LearningSlot) => {
-    dispatch(actions.chooseLearningSlot({ slot , moduleId, progress: true }))
+    dispatch(actions.chooseLearningSlot({ slotId: slot.id , moduleId, progress: true }))
   }, [dispatch]);
 
   const dayOffsets = [1, 2, 3, 4, 5]
@@ -48,7 +48,7 @@ export function SlotPicker(props: Props) {
       <DayColumn
         key={index}
         dayName={day.format('dddd Do')}
-        slots={getSlotsFor(moduleId!, day)}
+        slots={railsData.getSlots(moduleId!, day)}
         onClick={slot => callback(moduleId!, slot)}
       />
     ))}
