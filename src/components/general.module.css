@@ -1,30 +1,32 @@
-.SlotPicker {
-    display: flex;
-}
-
-@media (max-width: 800px) {
-    .SlotPicker {
-        flex-direction: column;
-    }
-}
-
 .Box {
     padding: 0.4rem;
     border-radius: 2px;
     margin: 1rem;
 }
 
-.Heading {
+.HeadingBox {
     composes: Box;
     background-color: #efefef;
     border: 1px #c4c4c4 solid;
 }
 
-.Slot {
+.SlotBox {
     composes: Box;
     background-color: #f7f7f7;
 }
 
-.DayColumn {
+.ResponsiveColumns {
+    display: flex;
+    flex-direction: row;
+}
+
+@media (max-width: 800px) {
+    .ResponsiveColumns {
+        flex-direction: column;
+    }
+}
+
+.ResponsiveColumn {
     flex-grow: 1;
 }
+

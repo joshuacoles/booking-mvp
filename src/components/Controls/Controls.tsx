@@ -4,6 +4,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 import classes from "./Controls.module.css";
+import useSizeClass from "../../utils/useSizeClass";
 
 interface Props {
   selectedWeek: Dayjs
@@ -11,31 +12,13 @@ interface Props {
 }
 
 function WeekIndicator({ value }: { value: [Date?, Date?] }) {
-  const [mode, setMode] = useState<'big' | 'small' | 'hidden'>('big');
+  const sizeClass = useSizeClass();
 
-  useEffect(() => {
-    function handler() {
-      const width = window.screen.availWidth;
-
-      if (width > 800) setMode("big");
-      else if (width > 300) setMode("small");
-      else setMode("hidden")
-    }
-
-    // Add event listener
-    window.addEventListener("resize", handler);
-
-    // Call handler right away so state gets updated with initial window size
-    handler();
-    // Remove event listener on cleanup
-    return () => window.removeEventListener("resize", handler);
-  }, [])
-
-  if (mode === 'hidden') {
+  if (sizeClass === 'small') {
     return <Icon icon={"calendar"}/>
   }
 
-  const fmt = mode === 'big' ? 'Do MMMM YYYY' : 'DD/MM/YYYY';
+  const fmt = sizeClass === 'big' ? 'Do MMMM YYYY' : 'DD/MM/YYYY';
 
   return <span>{dayjs(value[0]).format(fmt)} to {dayjs(value[1]).format(fmt)}</span>;
 }
